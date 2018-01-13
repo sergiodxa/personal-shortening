@@ -1,0 +1,7 @@
+{
+  "name": "personal-shortening",
+  "alias": "sdx.im",
+  "env": [
+    "REDIRECT_URL"
+  ]
+}

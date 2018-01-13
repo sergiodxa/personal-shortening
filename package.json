@@ -1,0 +1,19 @@
+{
+  "name": "personal-shortening",
+  "version": "1.0.0",
+  "main": "server/index.js",
+  "repository": "https://github.com/sergiodxa/personal-shortening.git",
+  "author": "sergiodxa <sergiodxa@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "micro-dev",
+    "start": "micro"
+  },
+  "dependencies": {
+    "micro": "^9.1.0",
+    "now-env": "^3.0.2"
+  },
+  "devDependencies": {
+    "micro-dev": "^2.2.0"
+  }
+}
