@@ -1,7 +1,7 @@
 before_deploy: npm install now --no-save
 deploy:
   provider: script
-  script: now && now alias
+  script: now -e REDIRECT_URL=https://sergiodxa.com -t $TOKEN && now alias -t $TOKEN
   skip_cleanup: true
   on:
     branch: master
