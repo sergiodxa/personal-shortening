@@ -1,0 +1,7 @@
+before_deploy: npm install now --no-save
+deploy:
+  provider: script
+  script: now && now alias
+  skip_cleanup: true
+  on:
+    branch: master
