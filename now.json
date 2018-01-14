@@ -1,7 +1,5 @@
 {
   "name": "personal-shortening",
   "alias": "sdx.im",
-  "env": [
-    "REDIRECT_URL"
-  ]
+  "env": ["REDIRECT_URL"]
 }
