@@ -1,10 +1,11 @@
 language: node_js
 node_js:
   - "node"
+install: echo "Dependencies installed on Now"
 before_deploy: npm install now --no-save
 deploy:
   provider: script
-  script: now -e REDIRECT_URL=https://sergiodxa.com -t $TOKEN && now alias -t $TOKEN
+  script: now -e NODE_ENV=@env -e REDIRECT_URL=https://sergiodxa.com -t $TOKEN && now alias -t $TOKEN
   skip_cleanup: true
   on:
     branch: master
