@@ -1,5 +1,7 @@
 require("now-env");
 
+const fetch = require("node-fetch");
+
 if (!process.env.REDIRECT_URL) {
   throw new Error("You must provide the REDIRECT_URL environment variable!");
 }
@@ -19,6 +21,10 @@ async function main(req, res) {
   } else {
     Location = match;
   }
+
+  fetch(
+    `https://analytics.sergiodxa.com?action=Personal Shortening&description=Redirecting to ${Location}`
+  );
 
   res.writeHead(STATUS, { Location });
   res.end();
