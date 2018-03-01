@@ -22,9 +22,13 @@ async function main(req, res) {
     Location = match;
   }
 
-  fetch(
-    `https://analytics.sergiodxa.com?action=Personal Shortening&description=Redirecting to ${Location}`
-  );
+  fetch("https://analytics.sergiodxa.com", {
+    method: "POST",
+    body: JSON.stringify({
+      action: "Personal Shortening",
+      description: `Redirecting to ${Location} from ${req.url}`
+    })
+  });
 
   res.writeHead(STATUS, { Location });
   res.end();
