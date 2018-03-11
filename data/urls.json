@@ -15,5 +15,6 @@
   "/feed": "https://sergiodxa.com/atom",
   "/subscribe": "https://sergiodxa.com/subscribe",
   "/newsletter": "https://sergiodxa.com/subscribe",
-  "/personal": "https://github.com/sergiodxa/personal"
+  "/personal": "https://github.com/sergiodxa/personal",
+  "/devto": "https://dev.to/sergiodxa"
 }
