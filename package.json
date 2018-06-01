@@ -16,6 +16,6 @@
     "now-env": "^3.0.2"
   },
   "devDependencies": {
-    "micro-dev": "2.2.0"
+    "micro-dev": "2.2.2"
   }
 }
