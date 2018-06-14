@@ -29,7 +29,7 @@ async function main(req, res) {
   }
   
   if (isLink(pathname)) {
-    Location = pathname.slice(6);
+    Location = pathname.slice(5);
   }
 
   fetch("https://analytics.sergiodxa.com", {
