@@ -13,13 +13,13 @@ const STATUS = parseInt(process.env.STATUS, 10) || 301;
 const urls = require("../data/urls.json");
 
 function isLink(pathname) {
-  return pathname.indexOf("/link") === 0;
+  return pathname.indexOf("/link/") === 0;
 }
 
 async function main(req, res) {
   let Location;
 
-  const { pathname } = parse(req.url, true);
+  const { pathname } = parse(req.url);
   const match = urls[req.url];
 
   if (!match) {
@@ -29,7 +29,7 @@ async function main(req, res) {
   }
   
   if (isLink(pathname)) {
-    Location = pathname.slice(5);
+    Location = pathname.slice(6);
   }
 
   fetch("https://analytics.sergiodxa.com", {
