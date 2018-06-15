@@ -19,7 +19,7 @@ function isLink(pathname) {
 async function main(req, res) {
   let Location;
 
-  const { pathname } = parse(req.url);
+  const { pathname, query } = parse(req.url, true);
   const match = urls[req.url];
 
   if (!match) {
@@ -36,7 +36,8 @@ async function main(req, res) {
     method: "POST",
     body: JSON.stringify({
       action: isLink(pathname) ? "Link Sharing" : "Personal Shortening",
-      description: isLink(pathname) ? `Accesssing link ${Location}` : `Redirecting to ${Location} from ${req.url}`
+      description: isLink(pathname) ? `Accesssing link ${Location}` : `Redirecting to ${Location} from ${req.url}`,
+      source: query.source
     })
   });
 
