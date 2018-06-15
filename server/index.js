@@ -32,14 +32,30 @@ async function main(req, res) {
     Location = pathname.slice(6);
   }
 
-  fetch("https://analytics.sergiodxa.com", {
-    method: "POST",
-    body: JSON.stringify({
-      action: isLink(pathname) ? "Link Sharing" : "Personal Shortening",
-      description: isLink(pathname) ? `Accesssing link ${Location}` : `Redirecting to ${Location} from ${req.url}`,
-      source: query.source
+  const options = { method: "POST" };
+
+  if (isLink(pathname)) {
+    Object.assign(options, {
+      headers: {
+        "x-forwarded-for": req.headers["x-forwarded-for"],
+      },
+      body: JSON.stringify({
+        action: "Link Sharing",
+        description: `Accessing link ${Location}`,
+        source: query.source,
+      })
     })
-  });
+  } else {
+    Object.assign(options, {
+      body: JSON.stringify({
+        action: "Personal Shortening",
+        description: `Redirecting to ${Location} from ${req.url}`,
+        source: query.source
+      })
+    })
+  }
+
+  fetch("https://analytics.sergiodxa.com", options);
 
   res.writeHead(STATUS, { Location });
   res.end();
