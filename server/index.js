@@ -1,6 +1,7 @@
 require("now-env");
 
 const { parse } = require("url");
+const { stringify } = require("querystring");
 const fetch = require("node-fetch");
 
 if (!process.env.REDIRECT_URL) {
@@ -19,7 +20,10 @@ function isLink(pathname) {
 async function main(req, res) {
   let Location;
 
-  const { pathname, query } = parse(req.url, true);
+  const {
+    pathname,
+    query: { source }
+  } = parse(req.url, true);
   const match = urls[req.url];
 
   if (!match) {
@@ -27,35 +31,37 @@ async function main(req, res) {
   } else {
     Location = match;
   }
-  
+
   if (isLink(pathname)) {
     Location = pathname.slice(6);
   }
 
-  const options = { method: "POST" };
-
-  if (isLink(pathname)) {
-    Object.assign(options, {
-      headers: {
-        "x-forwarded-for": req.headers["x-forwarded-for"],
-      },
-      body: JSON.stringify({
-        action: "Link Sharing",
-        description: `Accessing link ${Location}`,
-        source: query.source,
+  const query = isLink(pathname)
+    ? stringify({
+        v: "1",
+        tid: "UA-48432002-3",
+        cid: "555",
+        uip: req.headers["x-forwarded-for"],
+        ua: req.headers["user-agent"],
+        t: "event",
+        ec: "Link Sharing",
+        ea: "accessed",
+        el: `Accessing link ${Location}`,
+        cn: source
       })
-    })
-  } else {
-    Object.assign(options, {
-      body: JSON.stringify({
-        action: "Personal Shortening",
-        description: `Redirecting to ${Location} from ${req.url}`,
-        source: query.source
-      })
-    })
-  }
-
-  fetch("https://analytics.sergiodxa.com", options);
+    : stringify({
+        v: "1",
+        tid: "UA-48432002-3",
+        cid: "555",
+        uip: req.headers["x-forwarded-for"],
+        ua: req.headers["user-agent"],
+        t: "event",
+        ec: "Short URL Redirect",
+        ea: "redirected",
+        el: `Redirecting to ${Location} from ${req.url}`,
+        cn: source
+      });
+  fetch(`https://www.google-analytics.com/collect?${query}`);
 
   res.writeHead(STATUS, { Location });
   res.end();
