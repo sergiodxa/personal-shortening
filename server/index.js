@@ -40,7 +40,7 @@ async function main(req, res) {
     ? stringify({
         v: "1",
         tid: "UA-48432002-3",
-        cid: "555",
+        cid: req.headers["x-forwarded-for"].split(".").join(""),
         uip: req.headers["x-forwarded-for"],
         ua: req.headers["user-agent"],
         t: "event",
@@ -52,7 +52,7 @@ async function main(req, res) {
     : stringify({
         v: "1",
         tid: "UA-48432002-3",
-        cid: "555",
+        cid: req.headers["x-forwarded-for"].split(".").join(""),
         uip: req.headers["x-forwarded-for"],
         ua: req.headers["user-agent"],
         t: "event",
