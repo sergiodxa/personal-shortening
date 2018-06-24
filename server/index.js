@@ -1,69 +1,64 @@
+// modules
 require("now-env");
-
 const { parse } = require("url");
-const { stringify } = require("querystring");
-const fetch = require("node-fetch");
+const { isURL } = require("validator");
 
+// lis
+const track = require("../lib/track");
+
+// checks
 if (!process.env.REDIRECT_URL) {
   throw new Error("You must provide the REDIRECT_URL environment variable!");
 }
 
+// constantes
 const REDIRECT_URL = process.env.REDIRECT_URL.replace(/\/$/, "") + "/";
 const STATUS = parseInt(process.env.STATUS, 10) || 301;
 
+// map of shortened URLs
 const urls = require("../data/urls.json");
 
+// isURL custom config
+const urlConfig = {
+  protocols: ["http", "https"],
+  require_protocol: true,
+  require_host: true,
+  require_valid_protocol: true
+};
+
+// check if a function is a link
 function isLink(pathname) {
   return pathname.indexOf("/link/") === 0;
 }
 
 async function main(req, res) {
-  let Location;
+  let location;
 
   const {
     pathname,
     query: { source }
   } = parse(req.url, true);
+
   const match = urls[req.url];
 
   if (!match) {
-    Location = `${REDIRECT_URL}${req.url.substr(1)}`;
+    location = `${REDIRECT_URL}${req.url.substr(1)}`;
   } else {
-    Location = match;
+    location = match;
   }
 
   if (isLink(pathname)) {
-    Location = pathname.slice(6);
+    location = pathname.slice(6);
   }
 
-  const query = isLink(pathname)
-    ? stringify({
-        v: "1",
-        tid: "UA-48432002-3",
-        cid: req.headers["x-forwarded-for"].split(".").join(""),
-        uip: req.headers["x-forwarded-for"],
-        ua: req.headers["user-agent"],
-        t: "event",
-        ec: "Link Sharing",
-        ea: "accessed",
-        el: `Accessing link ${Location}`,
-        cn: source
-      })
-    : stringify({
-        v: "1",
-        tid: "UA-48432002-3",
-        cid: req.headers["x-forwarded-for"].split(".").join(""),
-        uip: req.headers["x-forwarded-for"],
-        ua: req.headers["user-agent"],
-        t: "event",
-        ec: "Short URL Redirect",
-        ea: "redirected",
-        el: `Redirecting to ${Location} from ${req.url}`,
-        cn: source
-      });
-  fetch(`https://www.google-analytics.com/collect?${query}`);
+  // if the location is not a valid URL fallback to REDIRECT_URL
+  if (!isURL(location, urlConfig)) {
+    location = REDIRECT_URL;
+  }
 
-  res.writeHead(STATUS, { Location });
+  track({ req, isLink: isLink(pathname), source, location });
+
+  res.writeHead(STATUS, { Location: location });
   res.end();
 }
 
