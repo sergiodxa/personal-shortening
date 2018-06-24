@@ -26,11 +26,19 @@ const urlConfig = {
   require_valid_protocol: true
 };
 
-// check if a function is a link
+/**
+ * Check if a pathname is a link redirect (starts with /link/)
+ * @param {string} pathname The pathname to check
+ */
 function isLink(pathname) {
   return pathname.indexOf("/link/") === 0;
 }
 
+/**
+ * Create a redirect for shortened redirects
+ * @param {Object} req HTTP Request
+ * @param {Object} res HTTP Response
+ */
 async function main(req, res) {
   let location;
 
