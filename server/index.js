@@ -11,7 +11,7 @@ if (!process.env.REDIRECT_URL) {
   throw new Error("You must provide the REDIRECT_URL environment variable!");
 }
 
-// constantes
+// constants
 const REDIRECT_URL = process.env.REDIRECT_URL.replace(/\/$/, "") + "/";
 const STATUS = parseInt(process.env.STATUS, 10) || 301;
 
