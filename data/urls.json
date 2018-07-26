@@ -16,5 +16,6 @@
   "/subscribe": "https://sergiodxa.com/subscribe",
   "/newsletter": "https://sergiodxa.com/subscribe",
   "/personal": "https://github.com/sergiodxa/personal",
-  "/devto": "https://dev.to/sergiodxa"
+  "/devto": "https://dev.to/sergiodxa",
+  "/book/react-redux": "https://leanpub.com/react-redux"
 }
