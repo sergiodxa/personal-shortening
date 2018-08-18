@@ -1,5 +1,12 @@
 {
   "name": "personal-shortening",
   "alias": "sdx.im",
-  "env": ["REDIRECT_URL"]
+  "type": "docker",
+  "features": {
+    "cloud": "v2"
+  },
+  "env": {
+    "REDIRECT_URL": "http://sergiodxa.com",
+    "TRACKING_ID": "UA-48432002-3"
+  }
 }

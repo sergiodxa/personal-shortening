@@ -1013,10 +1013,6 @@ normalize-path@^2.1.1:
   dependencies:
     remove-trailing-separator "^1.0.1"
 
-now-env@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/now-env/-/now-env-3.0.2.tgz#b0725023a799240c5c7e4a43515eb0a65c2c3663"
-
 npm-bundled@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.0.3.tgz#7e71703d973af3370a9591bafe3a63aca0be2308"

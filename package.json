@@ -13,7 +13,6 @@
   "dependencies": {
     "micro": "^9.1.0",
     "node-fetch": "^2.0.0",
-    "now-env": "^3.0.2",
     "validator": "^10.4.0"
   },
   "devDependencies": {

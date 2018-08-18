@@ -1,5 +1,4 @@
 // modules
-require("now-env");
 const { parse } = require("url");
 const { isURL } = require("validator");
 
