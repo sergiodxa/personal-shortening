@@ -2,11 +2,9 @@ language: node_js
 node_js:
   - "node"
 install: echo "Dependencies installed on Now"
-script: echo "No built required"
-before_deploy: npm install now --no-save
+script: echo "No build required"
 deploy:
   provider: script
-  script: now -t $TOKEN && now alias -t $TOKEN
-  skip_cleanup: true
+  script: npx now -t $TOKEN && npx now alias -t $TOKEN
   on:
     branch: master
