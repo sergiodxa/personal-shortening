@@ -6,7 +6,7 @@ script: echo "No built required"
 before_deploy: npm install now --no-save
 deploy:
   provider: script
-  script: now -e NODE_ENV=@env -e TRACKING_ID=UA-48432002-3 -e REDIRECT_URL=https://sergiodxa.com -t $TOKEN && now alias -t $TOKEN
+  script: now -t $TOKEN && now alias -t $TOKEN
   skip_cleanup: true
   on:
     branch: master
