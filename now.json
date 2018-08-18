@@ -5,6 +5,10 @@
   "features": {
     "cloud": "v2"
   },
+  "scale": {
+    "sfo1": { "min": 0, "max": "auto" },
+    "bru1": { "min": 0, "max": "auto"}
+  },
   "env": {
     "REDIRECT_URL": "http://sergiodxa.com",
     "TRACKING_ID": "UA-48432002-3"
