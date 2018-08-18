@@ -1,29 +1,30 @@
-// modules
+// Packages
 const { parse } = require("url");
 const { isURL } = require("validator");
 
-// lis
+// Modules
 const track = require("../lib/track");
 
-// checks
+// Environment variables
+const REDIRECT_URL = process.env.REDIRECT_URL.replace(/\/$/, "") + "/";
+const STATUS = parseInt(process.env.STATUS, 10) || 301;
+
 if (!process.env.REDIRECT_URL) {
   throw new Error("You must provide the REDIRECT_URL environment variable!");
 }
 
-// constants
-const REDIRECT_URL = process.env.REDIRECT_URL.replace(/\/$/, "") + "/";
-const STATUS = parseInt(process.env.STATUS, 10) || 301;
-
-// map of shortened URLs
+// Data
 const urls = require("../data/urls.json");
 
-// isURL custom config
+// Configuration
 const urlConfig = {
   protocols: ["http", "https"],
   require_protocol: true,
   require_host: true,
   require_valid_protocol: true
 };
+
+// Code
 
 /**
  * Check if a pathname is a link redirect (starts with /link/)
