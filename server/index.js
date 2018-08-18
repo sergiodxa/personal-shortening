@@ -67,7 +67,6 @@ async function main(req, res) {
   track({ req, isLink: isLink(pathname), source, location });
 
   res.writeHead(STATUS, { Location: location });
-  res.setHeader("Cache-Control", "public, max-age=0, s-maxage=31536000");
   res.end();
 }
 
